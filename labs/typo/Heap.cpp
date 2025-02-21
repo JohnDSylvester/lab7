@@ -1,4 +1,5 @@
 #include <stdexcept>
+#include "Heap.h"
 
 bool fixPop(Heap::Entry* data, size_t &index, size_t count);
 bool topCheck(Heap::Entry* data, size_t &index);
