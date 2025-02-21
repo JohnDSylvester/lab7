@@ -41,7 +41,7 @@ size_t Heap::count() const{
 }
 
 const Heap::Entry& Heap::lookup(size_t index) const{
-	if(index > mCount-1){
+	if(index >= mCount){
 		throw(std::out_of_range("Invalid Index"));
 	}
 	return mData[index];
@@ -94,15 +94,18 @@ bool fixPop(Heap::Entry* data, size_t &index, size_t count){
         bool leftLowest = data[(index*2)+2].score > data[(index * 2) + 1].score;
         if(leftLowest){
                 data[index] = data[index * 2 +1];
+		index++;
                 return 1;
         }
         else{
                 data[index] = data[index * 2 + 2];
+		index++;
                 return 1;
         }
         }
         else if(index* 2 + 1 < count){
                 data[index] = data[index * 2 +1];
+		index++;
                 return 1;
         }
         return 0;
