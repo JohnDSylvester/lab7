@@ -140,10 +140,6 @@ Heap::Entry findBottom(Heap::Entry* data, size_t index, size_t count){
 	}
 }
 
-Heap::Entry findBottom(Heap::Entry* data, size_t index, size_t count){
-
-}
-
 bool topCheck(Heap::Entry* data, size_t &index){
         if(index != 0){
         if(data[index].score < data[(index-1)/2].score){
