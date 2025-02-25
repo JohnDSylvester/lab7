@@ -82,6 +82,7 @@ Heap::Entry Heap::pushpop(const std::string& value, float score){
         if(mCount == 0){
                 throw(std::underflow_error("Popping empty heap"));
         }
+	std::cout << "Pushpop\n";
         Heap::Entry save = top();
         makeEntry(value, score, mData, 0);
         size_t index = 0;
