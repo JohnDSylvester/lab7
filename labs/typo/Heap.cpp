@@ -154,7 +154,7 @@ bool bottomCheck(Heap::Entry* data, size_t &index, size_t count){
                 index = index * 2 + 2;
 		return 1;
 	}
-	else if(data[(index * 2) + 1].score == data[(index*2)+2].score){
+	else if(data[(index * 2) + 1].score == data[(index*2)+2].score && data[(index * 2) + 1].score != data[index].score){
 		Heap::Entry temp = data[index];
                 data[index] = data[index * 2 + 1];
                 data[index * 2 + 1] = temp;
