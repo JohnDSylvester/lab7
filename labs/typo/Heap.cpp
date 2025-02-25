@@ -71,16 +71,11 @@ void Heap::push(const std::string& value, float score){
 		throw(std::overflow_error("Pushing to full"));
 	}
 	makeEntry(value, score, mData, mCount);
-	 std::cout<< "Pushed: " << value << " " << score << std::endl;
 	if(mCount != 0){
 	size_t currentIndex = mCount;
 	while(topCheck(mData, currentIndex)){}
 	}
 	mCount++;
-	 for(size_t i = 0; i < mCount; i++){
-        std::cout<< mData[i].value << " " << mData[i].score << std::endl;
-    }
-	 std::cout<< std::endl;
 }
 
 Heap::Entry Heap::pushpop(const std::string& value, float score){
@@ -158,6 +153,13 @@ bool bottomCheck(Heap::Entry* data, size_t &index, size_t count){
                 data[index * 2 + 2] = temp;
                 index = index * 2 + 2;
 		return 1;
+	}
+	else{
+		Heap::Entry temp = data[index];
+                data[index] = data[index * 2 +1];
+                data[index * 2 + 1] = temp;
+                index = index * 2 + 1;
+                return 1;
 	}
 	}
 	else if(index* 2 + 1 < count){
