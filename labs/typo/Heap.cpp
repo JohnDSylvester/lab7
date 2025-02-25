@@ -1,10 +1,12 @@
 #include <stdexcept>
+#include <iostream>
 #include "Heap.h"
 
-bool fixPop(Heap::Entry* data, size_t &index, size_t count);
+size_t fixPop(Heap::Entry* data, size_t count);
 bool topCheck(Heap::Entry* data, size_t &index);
 void makeEntry(const std::string& value, float score, Heap::Entry* data, size_t index);
 bool bottomCheck(Heap::Entry* data, size_t &index, size_t count);
+Heap::Entry findBottom(Heap::Entry* data, size_t index, size_t count);
 
 Heap::Heap(size_t capacity){
 	mData = new Entry[capacity];
@@ -52,9 +54,17 @@ Heap::Entry Heap::pop(){
 	if(mCount == 0){
 		throw(std::underflow_error("Popping empty heap"));
 	}
+	else if(mCount == 1){
+		mCount--;
+		return mData[0];
+	}
 	Heap::Entry save = top();
-	size_t currentIndex = 0;
-	while(fixPop(mData, currentIndex, mCount)){}
+	size_t newTop = fixPop(mData, mCount);
+	Heap::Entry replace;
+	replace = findBottom(mData, 0, mCount);
+	mData[0] = mData[newTop];
+	mData[newTop].score = replace.score;
+	mData[newTop].value = replace.value;
 	mCount--;
 	return save;
 }
@@ -89,26 +99,49 @@ const Heap::Entry& Heap::top() const{
 	return mData[0];
 }
 
-bool fixPop(Heap::Entry* data, size_t &index, size_t count){
-	if(index* 2 + 2 < count){
-        bool leftLowest = data[(index*2)+2].score > data[(index * 2) + 1].score;
+size_t fixPop(Heap::Entry* data, size_t count){
+	if(2 < count){
+        bool leftLowest = data[2].score > data[1].score;
         if(leftLowest){
-                data[index] = data[index * 2 +1];
-		index++;
                 return 1;
         }
         else{
-                data[index] = data[index * 2 + 2];
-		index++;
+                return 2;
+        }
+        }
+        else{
                 return 1;
         }
-        }
-        else if(index* 2 + 1 < count){
-                data[index] = data[index * 2 +1];
-		index++;
-                return 1;
-        }
-        return 0;
+}
+
+Heap::Entry findBottom(Heap::Entry* data, size_t index, size_t count){
+	if(index* 2 + 2 < count){
+		//std::cout << index << " " << data[index].score << " " << data[index].value << std::endl;
+		return findBottom(data, index*2+2, count);
+	}
+	else if(index* 2 + 1 < count){
+		//std::cout << index << " " << data[index].score << " " << data[index].value << std::endl;
+		return findBottom(data, index*2+1, count);
+	}
+	else if((index-1) * 2 + 2 < count){
+		if(data[(index-1) * 2 + 1].score < data[(index-1) * 2 + 2].score){
+			Heap::Entry temp = data[(index-1) * 2 + 1];
+			data[(index-1) * 2 + 1] = data[(index-1) * 2 + 2];
+			return temp;
+		}
+		return data[(index-1) * 2 + 2];
+	}
+	else if((index-1) * 2 + 1 < count){
+		return data[(index-1) * 2 + 1];
+	}
+	else{
+		//std::cout << index << " " << data[index].score << " " << data[index].value << std::endl;
+		return data[index];
+	}
+}
+
+Heap::Entry findBottom(Heap::Entry* data, size_t index, size_t count){
+
 }
 
 bool topCheck(Heap::Entry* data, size_t &index){
