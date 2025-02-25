@@ -58,6 +58,7 @@ Heap::Entry Heap::pop(){
 		mCount--;
 		return mData[0];
 	}
+	
 	Heap::Entry save = top();
 	mData[0] = mData[mCount-1];
 	mCount--;
@@ -100,12 +101,17 @@ void fixPop(Heap::Entry* data, size_t index, size_t count){
 	size_t right = index* 2 + 2;
 	size_t current = index;
 
+	if(left < count && data[left].score < data[current].score){
+                current = left;
+        }
+
 	if(right < count && data[right].score< data[current].score){
 		current = right;
 	}
-	if(left < count && data[left].score < data[current].score){
-		current = left;
-	}
+	
+	if(left < count && right < count && data[left].score == data[right].score){
+                current = left;
+        }
 
 	if(current != index){
 		Heap::Entry temp = data[index];
