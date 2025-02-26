@@ -82,9 +82,7 @@ Heap::Entry Heap::pushpop(const std::string& value, float score){
         if(mCount == 0){
                 throw(std::underflow_error("Popping empty heap"));
         }
-	if(score >= 0){
-	std::cout << "Pushed: " << value << " " << score << std::endl;
-	}Heap::Entry save = top();
+	Heap::Entry save = top();
         makeEntry(value, score, mData, 0);
         size_t index = 0;
         while(bottomCheck(mData, index, mCount)){}
@@ -110,6 +108,9 @@ void fixPop(Heap::Entry* data, size_t index, size_t count){
 	if(left < count && data[left].score < data[current].score){
                 current = left;
         }
+	if(right < count && left < count && data[left].score < data[current].score && data[right].score == data[left].score){
+		current = left;
+	}
 
 	//if(left < count && right < count && data[left].score == data[right].score){
           //      current = left;
