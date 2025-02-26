@@ -99,9 +99,7 @@ const Heap::Entry& Heap::top() const{
 bool topCheck(Heap::Entry* data, size_t &index){
         if(index != 0){
         if(data[index].score < data[(index-1)/2].score){
-                Heap::Entry temp = data[index];
-                data[index] = data[(index-1)/2];
-                data[(index-1)/2] = temp;
+		std::swap(data[index],data[(index-1)/2]);
                 index = (index-1)/2;
                 return 1;
         }
@@ -114,25 +112,19 @@ bool bottomCheck(Heap::Entry* data, size_t &index, size_t count){
 	bool leftLowest = data[index].score > data[(index * 2) + 1].score && data[(index*2)+2].score >= data[(index * 2) + 1].score;
 	bool rightLowest = data[index].score > data[(index * 2) + 2].score && data[(index*2)+1].score > data[(index * 2) + 2].score;
 	if(leftLowest){
-		Heap::Entry temp = data[index];
-                data[index] = data[index * 2 +1];
-                data[index * 2 + 1] = temp;
+		std::swap(data[index],data[index*2 +1]);
                 index = index * 2 + 1;
 		return 1;
 	}
 	else if(rightLowest){
-		Heap::Entry temp = data[index];
-                data[index] = data[index * 2 + 2];
-                data[index * 2 + 2] = temp;
+		std::swap(data[index],data[index*2 +2]);
                 index = index * 2 + 2;
 		return 1;
 	}
 	}
 	else if(index* 2 + 1 < count){
 		if(data[index].score> data[(index * 2) + 1].score){
-		Heap::Entry temp = data[index];
-                data[index] = data[index * 2 +1];
-                data[index * 2 + 1] = temp;
+		std::swap(data[index],data[index*2 +1]);
                 index = index * 2 + 1;
 		return 1;
 		}
