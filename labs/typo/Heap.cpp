@@ -71,8 +71,8 @@ void Heap::push(const std::string& value, float score){
 	}
 	makeEntry(value, score, mData, mCount);
 	if(mCount != 0){
-	size_t currentIndex = mCount;
-	while(topCheck(mData, currentIndex)){}
+		size_t currentIndex = mCount;
+		while(topCheck(mData, currentIndex)){}
 	}
 	mCount++;
 }
@@ -108,24 +108,24 @@ bool topCheck(Heap::Entry* data, size_t &index){
 
 bool bottomCheck(Heap::Entry* data, size_t &index, size_t count){
         if(index* 2 + 2 < count){
-	bool leftLowest = data[index].score > data[(index * 2) + 1].score && data[(index*2)+2].score >= data[(index * 2) + 1].score;
-	bool rightLowest = data[index].score > data[(index * 2) + 2].score && data[(index*2)+1].score > data[(index * 2) + 2].score;
-	if(leftLowest){
-		std::swap(data[index],data[index*2 +1]);
-                index = index * 2 + 1;
-		return 1;
-	}
-	else if(rightLowest){
-		std::swap(data[index],data[index*2 +2]);
-                index = index * 2 + 2;
-		return 1;
-	}
+		bool leftLowest = data[index].score > data[(index * 2) + 1].score && data[(index*2)+2].score >= data[(index * 2) + 1].score;
+		bool rightLowest = data[index].score > data[(index * 2) + 2].score && data[(index*2)+1].score > data[(index * 2) + 2].score;
+		if(leftLowest){
+			std::swap(data[index],data[index*2 +1]);
+                	index = index * 2 + 1;
+			return 1;
+		}
+		else if(rightLowest){
+			std::swap(data[index],data[index*2 +2]);
+                	index = index * 2 + 2;
+			return 1;
+		}
 	}
 	else if(index* 2 + 1 < count){
 		if(data[index].score> data[(index * 2) + 1].score){
-		std::swap(data[index],data[index*2 +1]);
-                index = index * 2 + 1;
-		return 1;
+			std::swap(data[index],data[index*2 +1]);
+                	index = index * 2 + 1;
+			return 1;
 		}
 	}
         return 0;

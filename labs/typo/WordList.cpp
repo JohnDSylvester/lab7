@@ -1,6 +1,5 @@
 #include "WordList.h"
 #include "Point.h"
-#include <iostream>
 #include <cctype>
 #include <cmath>
 
@@ -74,11 +73,11 @@ Heap WordList::correct(const std::vector<Point>& points, size_t maxcount, float 
 			}
 		}
 		if(max > cutoff){
-		heap.push(maxWord, max);
-		count++;
+			heap.push(maxWord, max);
+			count++;
 		}
 		else{
-		break;
+			break;
 		}
 		usedWords.push_back(maxWord);
 	}
