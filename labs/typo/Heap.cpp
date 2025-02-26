@@ -139,7 +139,7 @@ bool topCheck(Heap::Entry* data, size_t &index){
 
 bool bottomCheck(Heap::Entry* data, size_t &index, size_t count){
         if(index* 2 + 2 < count){
-	bool leftLowest = data[index].score> data[(index * 2) + 1].score && data[(index*2)+2].score > data[(index * 2) + 1].score;
+	bool leftLowest = data[index].score > data[(index * 2) + 1].score && data[(index*2)+2].score > data[(index * 2) + 1].score;
 	bool rightLowest = data[index].score > data[(index * 2) + 2].score && data[(index*2)+1].score > data[(index * 2) + 2].score;
 	if(leftLowest){
 		Heap::Entry temp = data[index];
@@ -155,7 +155,7 @@ bool bottomCheck(Heap::Entry* data, size_t &index, size_t count){
                 index = index * 2 + 2;
 		return 1;
 	}
-	else if(data[(index * 2) + 1].score == data[(index*2)+2].score && data[(index * 2) + 1].score != data[index].score){
+	else if(data[(index * 2) + 1].score == data[(index*2)+2].score && data[(index * 2) + 1].score != data[index].score && data[(index * 2) + 1].score < data[index].score){
 		Heap::Entry temp = data[index];
                 data[index] = data[index * 2 + 1];
                 data[index * 2 + 1] = temp;
