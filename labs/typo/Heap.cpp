@@ -1,5 +1,4 @@
 #include <stdexcept>
-#include <iostream>
 #include "Heap.h"
 
 bool topCheck(Heap::Entry* data, size_t &index);
