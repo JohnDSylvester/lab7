@@ -2,7 +2,6 @@
 #include <iostream>
 #include "Heap.h"
 
-void fixPop(Heap::Entry* data, size_t index, size_t count);
 bool topCheck(Heap::Entry* data, size_t &index);
 void makeEntry(const std::string& value, float score, Heap::Entry* data, size_t index);
 bool bottomCheck(Heap::Entry* data, size_t &index, size_t count);
@@ -96,29 +95,6 @@ const Heap::Entry& Heap::top() const{
         }
 	return mData[0];
 }
-
-void fixPop(Heap::Entry* data, size_t index, size_t count){
-	size_t left = index* 2 + 1;
-	size_t right = index* 2 + 2;
-	size_t current = index;
-
-	if(left < count && data[left].score < data[current].score){
-                current = left;
-        }
-
-	if(right < count && data[right].score< data[current].score){
-		current = right;
-	}
-
-	if(current != index){
-		Heap::Entry temp = data[index];
-	        data[index] = data[current];
-       		data[current] = temp;
- 		fixPop(data,current,count);		
-	}
-}
-
-
 
 bool topCheck(Heap::Entry* data, size_t &index){
         if(index != 0){
