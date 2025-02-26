@@ -62,7 +62,8 @@ Heap::Entry Heap::pop(){
 	Heap::Entry save = top();
 	mData[0] = mData[mCount-1];
 	mCount--;
-	fixPop(mData, 0, mCount);
+	size_t index = 0;
+	while(bottomCheck(mData, index, mCount)){}
 	return save;
 }
 
